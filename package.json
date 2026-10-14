@@ -1,0 +1,39 @@
+{
+  "name": "com.gameframex.unity.operationkeyboard.fairygui",
+  "displayName": "Game Frame X Operation Keyboard (FairyGUI Binding)",
+  "version": "1.0.0",
+  "unity": "2019.4",
+  "description": "FairyGUI GTextInput keyboard binder plus a bootstrap auto-binder for GameFrameX OperationKeyboard. Zero panel changes: OperationKeyboardFairyGUIAutoBinder polls Stage.inst.focus and attaches the matching binder; com.gameframex.unity.fairygui.unity presence is probed via versionDefines (presence implies enabled; binder code is stripped when the package is absent and the native keyboard path is fully preserved).\n\nGameFrameX OperationKeyboard 的 FairyGUI GTextInput 键盘绑定包，含自举自动挂载器。零面板改动：OperationKeyboardFairyGUIAutoBinder 低频轮询 Stage 焦点并挂载绑定器；com.gameframex.unity.fairygui.unity 是否安装经 versionDefines 探测（发现即挂载，未安装时绑定器代码被裁剪，原生键盘路径完整保留）。",
+  "author": {
+    "name": "Blank",
+    "email": "alianblank@outlook.com",
+    "url": "https://gameframex.doc.alianblank.com"
+  },
+  "dependencies": {
+    "com.gameframex.unity": "2.5.4",
+    "com.gameframex.unity.operationkeyboard": "1.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gameframex/com.gameframex.unity.operationkeyboard.fairygui.git",
+    "name": "com.gameframex.unity.operationkeyboard.fairygui"
+  },
+  "documentationUrl": "https://gameframex.doc.alianblank.com",
+  "changelogUrl": "https://github.com/gameframex/com.gameframex.unity.operationkeyboard.fairygui/blob/main/CHANGELOG.md",
+  "licensesUrl": "https://github.com/gameframex/com.gameframex.unity.operationkeyboard.fairygui/blob/main/LICENSE.md",
+  "devDependencies": {
+    "semantic-release": "^24.2.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://npm.cnb.cool/GameFrameX/npm/-/packages/"
+  },
+  "category": "GameFrameX",
+  "keywords": [
+    "GameFrameX",
+    "OperationKeyboard",
+    "FairyGUI"
+  ]
+}

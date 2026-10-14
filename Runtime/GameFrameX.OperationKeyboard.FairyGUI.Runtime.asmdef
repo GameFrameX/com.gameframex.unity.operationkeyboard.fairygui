@@ -1,0 +1,24 @@
+{
+    "name": "GameFrameX.OperationKeyboard.FairyGUI.Runtime",
+    "rootNamespace": "GameFrameX.OperationKeyboard.FairyGUI.Runtime",
+    "references": [
+        "GameFrameX.Runtime",
+        "GameFrameX.OperationKeyboard.Runtime",
+        "FairyGUI.Runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.gameframex.unity.fairygui.unity",
+            "expression": "",
+            "define": "ENABLE_FAIRYGUI_OPERATIONKEYBOARD"
+        }
+    ],
+    "noEngineReferences": false
+}
