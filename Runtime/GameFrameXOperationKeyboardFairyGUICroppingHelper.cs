@@ -28,7 +28,6 @@
 //  ==========================================================================================
 
 using UnityEngine;
-using UnityEngine.Scripting;
 
 namespace GameFrameX.OperationKeyboard.FairyGUI.Runtime
 {
@@ -36,12 +35,12 @@ namespace GameFrameX.OperationKeyboard.FairyGUI.Runtime
     /// FairyGUI 键盘绑定包防裁剪助手。
     /// </summary>
     /// <remarks>
-    /// 宏墙启用时以编译期类型引用保留绑定链，配合各类型自身的 [Preserve]。
+    /// 宏墙启用时以编译期类型引用保留绑定链，配合各类型自身的 [UnityEngine.Scripting.Preserve]。
     /// </remarks>
-    [Preserve]
+    [UnityEngine.Scripting.Preserve]
     public class GameFrameXOperationKeyboardFairyGUICroppingHelper : MonoBehaviour
     {
-        [Preserve]
+        [UnityEngine.Scripting.Preserve]
         private void Start()
         {
 #if ENABLE_FAIRYGUI_OPERATIONKEYBOARD
