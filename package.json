@@ -10,7 +10,7 @@
     "url": "https://gameframex.doc.alianblank.com"
   },
   "dependencies": {
-    "com.gameframex.unity": "2.5.4",
+    "com.gameframex.unity": "3.0.0",
     "com.gameframex.unity.operationkeyboard": "1.0.0"
   },
   "repository": {
