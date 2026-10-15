@@ -38,7 +38,7 @@ GameFrameX OperationKeyboard（FairyGUI 綁定）是鍵盤家族的 UI 綁定套
 ### 核心特性
 
 - **GTextInput 綁定器** - `GTextInputKeyboardBinder` 訂閱 onFocusIn / onFocusOut 建立與解除鍵盤會話，confirm / complete 經 onSubmit 派發（與原生 Enter 路徑一致）
-- **自舉自動掛載器** - `DontDestroyOnLoad` 自舉低頻輪詢 `Stage.inst.focus`，發現聚焦輸入框即綁定（無需逐面板配置）
+- **自舉自動掛載器** - `DontDestroyOnLoad` 自舉低頻輪詢 `Stage.inst.focus`，發現聚焦輸入框即綁定（無需逐面板配置）；`[GameFrameX]` Host 就緒後自舉節點歸位到 `[GameFrameX]/UI/Keyboard` 分組下
 - **原生事件流** - input 事件賦值 `text`（`onChanged` 照常觸發）並置尾游標；confirm / complete 終值落定並派發 `onSubmit`；失焦解綁且不重複觸發
 - **工具集探測** - `versionDefines` 探測 `com.gameframex.unity.fairygui.unity`；探測到即註冊，未安裝時綁定器程式碼被裁剪
 
@@ -119,7 +119,7 @@ binder.Dispose();
 ### 主要類
 
 - **`GTextInputKeyboardBinder`**：`IOperationKeyboardField` 實作；聚焦 Attach、失焦 Detach、`Bind` 同一目標冪等。
-- **`OperationKeyboardFairyGUIAutoBinder`**：自舉自動掛載器；`DontDestroyOnLoad` + 低頻 `Stage.inst.focus` 輪詢 + 已銷毀目標清掃。
+- **`OperationKeyboardFairyGUIAutoBinder`**：自舉自動掛載器；`DontDestroyOnLoad` + 低頻 `Stage.inst.focus` 輪詢 + 已銷毀目標清掃；Host 就緒後歸位到 `[GameFrameX]/UI/Keyboard` 分組節點下。
 - **`GameFrameXOperationKeyboardFairyGUICroppingHelper`**：構建裁剪最佳化用的防裁剪助手。
 
 ### 注意事項

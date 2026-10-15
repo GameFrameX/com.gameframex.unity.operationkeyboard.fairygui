@@ -38,7 +38,7 @@ GameFrameX OperationKeyboard(FairyGUI 바인딩)는 키보드 패밀리의 UI �
 ### 주요 기능
 
 - **GTextInput 바인더** - `GTextInputKeyboardBinder`가 onFocusIn / onFocusOut을 구독하여 키보드 세션을 수립·해제; confirm / complete는 onSubmit을 디스패치(네이티브 Enter 경로와 동일)
-- **자가 부팅 자동 바인더** - `DontDestroyOnLoad`로 `Stage.inst.focus`를 저빈도 폴링하여 포커스된 입력창을 발견하면 즉시 바인딩(패널별 설정 불필요)
+- **자가 부팅 자동 바인더** - `DontDestroyOnLoad`로 `Stage.inst.focus`를 저빈도 폴링하여 포커스된 입력창을 발견하면 즉시 바인딩(패널별 설정 불필요). 호스트 준비 후 부트스트랩 노드는 `[GameFrameX]/UI/Keyboard` 그룹 아래로 이동
 - **네이티브 이벤트 흐름** - input 이벤트는 `text`에 대입(`onChanged`는 평소대로 발화)하고 캐럿을 끝으로 이동; confirm / complete는 최종 값을 확정하고 `onSubmit`을 디스패치; 블러 시 해제되며 중복 발화 없음
 - **툴킷 탐지** - `versionDefines`로 `com.gameframex.unity.fairygui.unity`를 탐지; 감지 시 등록, 미설치 시 바인더 코드는 스트립됩니다
 
@@ -119,7 +119,7 @@ binder.Dispose();
 ### 주요 클래스
 
 - **`GTextInputKeyboardBinder`**: `IOperationKeyboardField` 구현; 포커스 시 Attach, 블러 시 Detach, `Bind`는 대상별 멱등.
-- **`OperationKeyboardFairyGUIAutoBinder`**: 자가 부팅 자동 바인더; `DontDestroyOnLoad` + 저빈도 `Stage.inst.focus` 폴링 + 파괴된 대상 스윕.
+- **`OperationKeyboardFairyGUIAutoBinder`**: 자가 부팅 자동 바인더; `DontDestroyOnLoad` + 저빈도 `Stage.inst.focus` 폴링 + 파괴된 대상 스윕. 호스트 준비 후 `[GameFrameX]/UI/Keyboard` 그룹 아래로 이동합니다.
 - **`GameFrameXOperationKeyboardFairyGUICroppingHelper`**: 빌드 최적화용 코드 크로핑 헬퍼.
 
 ### 주의 사항

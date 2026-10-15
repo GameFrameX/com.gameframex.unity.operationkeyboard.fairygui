@@ -38,7 +38,7 @@ GameFrameX OperationKeyboard (FairyGUI Binding) is the UI binding package of the
 ### Key Features
 
 - **GTextInput Binder** - `GTextInputKeyboardBinder` subscribes onFocusIn / onFocusOut to establish and release the keyboard session; confirm / complete dispatch onSubmit (same as the native Enter path)
-- **Auto-Binder Bootstrap** - a `DontDestroyOnLoad` bootstrap polls `Stage.inst.focus` at a low frequency, discovers focused input fields and binds them automatically (no per-panel setup)
+- **Auto-Binder Bootstrap** - a `DontDestroyOnLoad` bootstrap polls `Stage.inst.focus` at a low frequency, discovers focused input fields and binds them automatically (no per-panel setup); once the `[GameFrameX]` runtime host is up, the bootstrap node relocates under `[GameFrameX]/UI/Keyboard`
 - **Native Event Flow** - input events assign `text` (`onChanged` fires as usual) and move the caret to the end; confirm / complete finalize the value and dispatch `onSubmit`; blur detaches without duplication
 - **Toolkit Probing** - `versionDefines` probe `com.gameframex.unity.fairygui.unity`; the binder compiles only when the toolkit is present (discovery means registration)
 
@@ -119,7 +119,7 @@ binder.Dispose();
 ### Main Classes
 
 - **`GTextInputKeyboardBinder`**: `IOperationKeyboardField` implementation; attach on focus, detach on blur, `Bind` is idempotent per target.
-- **`OperationKeyboardFairyGUIAutoBinder`**: bootstrap auto-binder; `DontDestroyOnLoad` + low-frequency `Stage.inst.focus` polling + disposed-target sweeping.
+- **`OperationKeyboardFairyGUIAutoBinder`**: bootstrap auto-binder; `DontDestroyOnLoad` + low-frequency `Stage.inst.focus` polling + disposed-target sweeping; relocates under the `[GameFrameX]/UI/Keyboard` group node once the runtime host exists.
 - **`GameFrameXOperationKeyboardFairyGUICroppingHelper`**: code cropping helper for build optimization.
 
 ### Notes

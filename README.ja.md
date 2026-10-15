@@ -38,7 +38,7 @@ GameFrameX OperationKeyboard（FairyGUI バインディング）はキーボー�
 ### 主要機能
 
 - **GTextInput バインダー** - `GTextInputKeyboardBinder` は onFocusIn / onFocusOut を購読してキーボードセッションを確立・解除；confirm / complete は onSubmit をディスパッチ（ネイティブの Enter 経路と同一）
-- **自舉自動バインダー** - `DontDestroyOnLoad` で `Stage.inst.focus` を低頻度ポーリングし、フォーカスされた入力欄を発見次第バインド（パネルごとの設定不要）
+- **自舉自動バインダー** - `DontDestroyOnLoad` で `Stage.inst.focus` を低頻度ポーリングし、フォーカスされた入力欄を発見次第バインド（パネルごとの設定不要）。ホスト起動後はブートストラップノードを `[GameFrameX]/UI/Keyboard` グループ配下へ移動
 - **ネイティブイベントフロー** - input イベントは `text` を代入（`onChanged` は通常どおり発火）しキャレットを末尾へ；confirm / complete は最終値を確定して `onSubmit` をディスパッチ；ブラー時の解除は重複発火なし
 - **ツールキット探測** - `versionDefines` で `com.gameframex.unity.fairygui.unity` を探測；検出時のみ登録、未インストール時はバインダーコードがストリップされます
 
@@ -119,7 +119,7 @@ binder.Dispose();
 ### 主要クラス
 
 - **`GTextInputKeyboardBinder`**：`IOperationKeyboardField` 実装；フォーカスで Attach、ブラーで Detach、`Bind` はターゲットごとに冪等。
-- **`OperationKeyboardFairyGUIAutoBinder`**：自舉自動バインダー；`DontDestroyOnLoad` + 低頻度 `Stage.inst.focus` ポーリング + 破棄済みターゲットのスイープ。
+- **`OperationKeyboardFairyGUIAutoBinder`**：自舉自動バインダー；`DontDestroyOnLoad` + 低頻度 `Stage.inst.focus` ポーリング + 破棄済みターゲットのスイープ。ホスト起動後に `[GameFrameX]/UI/Keyboard` グループ配下へ移動します。
 - **`GameFrameXOperationKeyboardFairyGUICroppingHelper`**：ビルド最適化用のコードクロッピングヘルパー。
 
 ### 注意事項
