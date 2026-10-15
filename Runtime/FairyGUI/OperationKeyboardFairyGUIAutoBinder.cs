@@ -32,6 +32,7 @@
 namespace GameFrameX.OperationKeyboard.FairyGUI.Runtime
 {
     using global::FairyGUI; // 命名空间段 FairyGUI 遮蔽全局命名空间，必须 global:: 限定（C30 门面遮蔽教训的命名空间变体）
+    using GameFrameX.Runtime;
     using UnityEngine;
 
     /// <summary>
@@ -43,8 +44,10 @@ namespace GameFrameX.OperationKeyboard.FairyGUI.Runtime
     /// （Stage 焦点在绑定器创建前已落定，onFocusIn 已错过），零面板改动自动适配；
     /// 同轮清扫已销毁目标的绑定器（聚焦中被销毁的字段兜底解绑，防键盘会话悬挂）。
     /// 手动模式（<see cref="GTextInputKeyboardBinder.Bind"/>）始终可用，挂载器经共用注册表对已绑定字段不重复干预。
+    /// 自举节点先以 DontDestroyOnLoad 根节点常驻（Host 尚未创建），Host 就绪后归位到 [GameFrameX] 的 UI/Keyboard 分组下。
     /// Bootstrap polls the FairyGUI stage focus and auto-attaches the matching binder so existing panels need
-    /// zero changes; manual binding stays available and shares the same registry.
+    /// zero changes; manual binding stays available and shares the same registry. The bootstrap node starts as a
+    /// DontDestroyOnLoad root and relocates under the [GameFrameX] UI/Keyboard group once the runtime host exists.
     /// </remarks>
     [UnityEngine.Scripting.Preserve]
     internal sealed class OperationKeyboardFairyGUIAutoBinder : MonoBehaviour
@@ -55,6 +58,11 @@ namespace GameFrameX.OperationKeyboard.FairyGUI.Runtime
         private const float PollIntervalSeconds = 0.1f;
 
         private float _nextPollTime;
+
+        /// <summary>
+        /// 是否已归位到 [GameFrameX] Host 的 UI/Keyboard 分组节点下。
+        /// </summary>
+        private bool _mountedUnderHostNode;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         [UnityEngine.Scripting.Preserve]
@@ -73,6 +81,8 @@ namespace GameFrameX.OperationKeyboard.FairyGUI.Runtime
         [UnityEngine.Scripting.Preserve]
         private void Update()
         {
+            MountUnderHostNode();
+
             if (Time.unscaledTime < _nextPollTime)
             {
                 return;
@@ -91,6 +101,32 @@ namespace GameFrameX.OperationKeyboard.FairyGUI.Runtime
                     GTextInputKeyboardBinder.Bind(gTextInput).HandleFocused();
                 }
             }
+        }
+
+        /// <summary>
+        /// 将自举节点归位到 [GameFrameX] Host 的 UI/Keyboard 分组节点下。
+        /// </summary>
+        /// <remarks>
+        /// Host 由核心包在 AfterSceneLoad 创建（晚于本组件 BeforeSceneLoad 自举），故在 Update 中低频重试；
+        /// "UI" 与 UIComponent 的组件节点同名（核心包按组件名去 Component 后缀建节点），缺失时由 Host API
+        /// 创建纯组织节点补齐路径。Host 未就绪前保持 DontDestroyOnLoad 根节点常驻，行为不变。
+        /// </remarks>
+        [UnityEngine.Scripting.Preserve]
+        private void MountUnderHostNode()
+        {
+            if (_mountedUnderHostNode)
+            {
+                return;
+            }
+
+            var keyboardNode = GameFrameXRuntimeHost.GetOrCreateHostNode("UI/Keyboard");
+            if (keyboardNode == null)
+            {
+                return;
+            }
+
+            transform.SetParent(keyboardNode, false);
+            _mountedUnderHostNode = true;
         }
     }
 }
